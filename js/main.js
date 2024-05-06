@@ -34,18 +34,43 @@ for (let i = 0; i < 42; i++) {
     board.appendChild(space);
     spaces[i] = spaceN;
     document.getElementById(spaceN).style.backgroundColor = 'white';
-    document.getElementById(spaces[i]).addEventListener('click', function(e) {
-        clickedSpace = e.target.id;
-        place()
-    })
+    // document.getElementById(spaces[i]).addEventListener('click', function(e) {
+    //     clickedSpace = e.target.id;
+    //     placeCheck()
+    // })
     }
 
+for (let i = 0; i < 7; i++) {
+    document.getElementById(spaces[i]).addEventListener('click', function(e) {
+        clickedSpace = spaces[i];
+        console.log('id = ' + clickedSpace)
+        placeCheck()
+    })
+}
+
+for (let i = 0; i < 7; i++) {
+    document.getElementById(spaces[i]).addEventListener('mouseover', function(e) {
+        clickedSpace = spaces[i];
+        if (document.getElementById(clickedSpace).style.backgroundColor = 'white') {
+        document.getElementById(clickedSpace).style.backgroundColor = 'purple'  // for some reason this makes top space unplayable
+        }e
+    })
+}
+
+for (let i = 0; i < 7; i++) {
+    document.getElementById(spaces[i]).addEventListener('mouseleave', function(e) {
+        clickedSpace = spaces[i];
+        if (document.getElementById(clickedSpace).style.backgroundColor = 'purple') {
+            document.getElementById(clickedSpace).style.backgroundColor = 'white'
+            }
+    })
+}
 
 document.getElementById('resetButton').addEventListener('click', reset)
 
-function place(){
-    legalCheck();
-    if (document.getElementById(clickedSpace).style.backgroundColor === 'white' && legal === true && gameOver === false) {
+function place() {
+    // legalCheck();
+    if (document.getElementById(clickedSpace).style.backgroundColor === 'white' || document.getElementById(clickedSpace).style.backgroundColor === 'purple' && gameOver === false) {
         if (redTurn === true) {
             document.getElementById(clickedSpace).style.backgroundColor = 'red';
         } else {
@@ -61,30 +86,30 @@ function place(){
     drawCheck();
 }
 
-// function placeCheck() {
-//     let spaceNumber = Number(clickedSpace.slice(5));
-//     console.log(spaceNumber)
-//     for (let i = (spaceNumber + 35) ; i >= 0; i -= 7) {
-//         if (document.getElementById(spaces[i]).style.backgroundColor === 'white') {
-//             clickedSpace = document.getElementById(spaces[i]);
-//             console.log(clickedSpace)
-//             place()
-//             break
-//         } else {
-//             break
-//         }
-//     }
-// }
-
-function legalCheck() {
+function placeCheck() {
+    console.log('clickedSpace = ' + clickedSpace)
     let spaceNumber = Number(clickedSpace.slice(5));
-    for (let i = spaceNumber + 7; i < 42; i += 7) {
-    if (document.getElementById(spaces[i]).style.backgroundColor === 'white') {
-        legal = false;
-        break
-    }
+    console.log('spaceNumber = ' + spaceNumber)
+    for (let i = (spaceNumber + 35) ; i >= spaceNumber; i -= 7) {
+        console.log('i = ' + i)
+        if (document.getElementById(spaces[i]).style.backgroundColor === 'white') {
+            clickedSpace = spaces[i];
+            console.log('clickedSpace = ' + clickedSpace)
+            place()
+            break
+        }
     }
 }
+
+// function legalCheck() {
+//     let spaceNumber = Number(clickedSpace.slice(5));
+//     for (let i = spaceNumber + 7; i < 42; i += 7) {
+//     if (document.getElementById(spaces[i]).style.backgroundColor === 'white') {
+//         legal = false;
+//         break
+//     }
+//     }
+// }
 
 function switchTurn(){
     redTurn = !redTurn

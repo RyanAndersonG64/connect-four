@@ -1,7 +1,6 @@
 stuff to do:
-    fix tic tac toe formatting
-
-    select row instead of space
-    
+    hover event to show selected column (but still have top space be playable)
+    do something special for winning sequences > 4
     animation?
     local/session storage
+    add comments
