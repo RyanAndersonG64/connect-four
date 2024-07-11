@@ -53,14 +53,14 @@ for (let i = 0; i < 7; i++) {
         clickedSpace = spaces[i];
         if (document.getElementById(clickedSpace).style.backgroundColor = 'white') {
         document.getElementById(clickedSpace).style.backgroundColor = 'purple'  // for some reason this makes top space unplayable
-        }e
+        }
     })
 }
 
 for (let i = 0; i < 7; i++) {
     document.getElementById(spaces[i]).addEventListener('mouseleave', function(e) {
         clickedSpace = spaces[i];
-        if (document.getElementById(clickedSpace).style.backgroundColor = 'purple') {
+        if (document.getElementById(clickedSpace).style.backgroundColor === 'purple') {
             document.getElementById(clickedSpace).style.backgroundColor = 'white'
             }
     })
@@ -69,7 +69,6 @@ for (let i = 0; i < 7; i++) {
 document.getElementById('resetButton').addEventListener('click', reset)
 
 function place() {
-    // legalCheck();
     if (document.getElementById(clickedSpace).style.backgroundColor === 'white' || document.getElementById(clickedSpace).style.backgroundColor === 'purple' && gameOver === false) {
         if (redTurn === true) {
             document.getElementById(clickedSpace).style.backgroundColor = 'red';
@@ -92,24 +91,18 @@ function placeCheck() {
     console.log('spaceNumber = ' + spaceNumber)
     for (let i = (spaceNumber + 35) ; i >= spaceNumber; i -= 7) {
         console.log('i = ' + i)
-        if (document.getElementById(spaces[i]).style.backgroundColor === 'white') {
+        if (document.getElementById(spaces[i]).style.backgroundColor === 'white' || document.getElementById(spaces[i]).style.backgroundColor === 'purple') {
             clickedSpace = spaces[i];
             console.log('clickedSpace = ' + clickedSpace)
+            if (gameOver === false) {
             place()
+            }
             break
         }
     }
 }
 
-// function legalCheck() {
-//     let spaceNumber = Number(clickedSpace.slice(5));
-//     for (let i = spaceNumber + 7; i < 42; i += 7) {
-//     if (document.getElementById(spaces[i]).style.backgroundColor === 'white') {
-//         legal = false;
-//         break
-//     }
-//     }
-// }
+
 
 function switchTurn(){
     redTurn = !redTurn
@@ -313,7 +306,7 @@ function drawCheck() {
             spacesPlayed++;
         }
     }
-    if (spacesPlayed === 42) {
+    if (spacesPlayed === 42 && gameOver === false) {
         gameOver = true;
         document.getElementById('gameText').textContent = 'Draw!'
         document.getElementById('gameText').style.color = 'white'
